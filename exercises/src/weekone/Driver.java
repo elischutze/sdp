@@ -5,7 +5,7 @@ public class Driver {
 
         // # 1. What are the reasons for using generics here?
 
-        // 
+        //
 
         Storage<BankAccount> aStorage = new Storage<>();
         Storage<String> sStorage = new Storage<>();
