@@ -1,6 +1,5 @@
-package scala
 
-- required
+
 
 // #### REPL Exercises#####
 
@@ -173,7 +172,6 @@ object Methods {
 
 // Classes & Objects
 
-
 object ObjectsAndClasses extends App {
 
   // 1. Create a Range object and print the step value. Create a second Range object with
@@ -340,8 +338,17 @@ object ObjectsAndClasses extends App {
   val flare2 = motorboat2.signal()
   assert(flare2 == "Flare used!", "Expected Flare used!, Got " + flare2)
 
+ //// Fields in Classes ///
+
+
+
+
+
+
 
 }
+
+
 
 
 
