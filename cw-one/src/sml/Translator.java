@@ -1,7 +1,11 @@
 package sml;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -82,43 +86,56 @@ public class Translator {
             return null;
 
         String ins = scan();
+        try {
+            Class instrClass = Class.forName("sml."+WordUtils.capitalize(ins)+"Instruction");
+            Constructor c[] = instrClass.getConstructors();
+            Constructor instruction = c[1];
+
         switch (ins) {
             case "add":
                 r = scanInt();
                 s1 = scanInt();
                 s2 = scanInt();
-                return new AddInstruction(label, r, s1, s2);
+                return (Instruction) instruction.newInstance(label, r, s1, s2);
             case "lin":
                 r = scanInt();
                 s1 = scanInt();
-                return new LinInstruction(label, r, s1);
+                return (Instruction) instruction.newInstance(label, r, s1);
             case "mul":
                 r = scanInt();
                 s1 = scanInt();
                 s2 = scanInt();
-                return new MultInstruction(label, r, s1, s2);
+                return (Instruction) instruction.newInstance(label, r, s1, s2);
             case "sub":
                 r = scanInt();
                 s1 = scanInt();
                 s2 = scanInt();
-                return new SubInstruction(label, r, s1, s2);
+                return (Instruction) instruction.newInstance(label, r, s1, s2);
             case "div":
                 r = scanInt();
                 s1 = scanInt();
                 s2 = scanInt();
-                return new DivInstruction(label, r, s1, s2);
+                return (Instruction) instruction.newInstance(label, r, s1, s2);
             case "out":
                 r = scanInt();
-                return new OutInstruction(label,r);
+                return (Instruction) instruction.newInstance(label,r);
             case "bnz":
                 r = scanInt();
                 x = scan();
-                return new BnzInstruction(label,r,x);
+                return (Instruction) instruction.newInstance(label,r,x);
 
         }
 
         // You will have to write code here for the other instructions.
-
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
