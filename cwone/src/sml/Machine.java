@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Machine {
     // The labels in the SML program, in the order in which
     // they appear (are defined) in the program
-
     private Labels labels;
 
     // The SML program, consisting of prog.size() instructions, each

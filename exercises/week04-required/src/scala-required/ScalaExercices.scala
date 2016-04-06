@@ -51,6 +51,8 @@
 // scala>
 
 import scala.math._
+import atomicscala.AtomicTest._
+
 
 // ######## EXPRESSIONS #######
 
@@ -339,6 +341,68 @@ object ObjectsAndClasses extends App {
   assert(flare2 == "Flare used!", "Expected Flare used!, Got " + flare2)
 
  //// Fields in Classes ///
+
+  class Cup {
+    var percentFull = 0
+    val max = 100
+
+    def add(increase:Int):Int = {
+      percentFull += increase
+      if(percentFull > max) {
+        percentFull = max
+      }
+      percentFull // Return this value
+    }
+  }
+
+  val cup = new Cup
+  cup.add(45) is 45
+  cup.add(-15) is 30
+  cup.add(-50) is -20
+
+  class Cup2 {
+    var percentFull = 0
+    val max = 100
+    val min = 0
+
+    def add(increase:Int):Int = {
+      percentFull += increase
+      if(percentFull > max) {
+        percentFull = max
+      }
+      else if(percentFull < min){
+        percentFull = min
+      }
+      percentFull // Return this value
+    }
+
+    def set(pfull:Int) = {
+      percentFull = pfull
+    }
+
+    def get():Int = {
+      return percentFull
+    }
+  }
+
+  val cup2 = new Cup2
+  cup2.add(45) is 45
+  cup2.add(-55) is 0
+  cup2.add(10) is 10
+  cup2.add(-9) is 1
+  cup2.add(-2) is 0
+
+  cup2.percentFull = 65
+  cup2.percentFull is 65
+
+  val cup3 = new Cup2
+  cup2.set(56)
+  cup2.get() is 56
+
+
+
+
+
 
 
 
